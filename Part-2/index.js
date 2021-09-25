@@ -36,11 +36,16 @@ const generateResult = () => {
     //write dsl file.
     Utils.writeFile(`${fileName}.dsl`, dslString);
 
-
 }
 
-
-
-const filePath = process.argv[2];
-const stocks = Utils.readJsonFile(filePath);
-generateResult();
+try {
+    const filePath = process.argv[2];
+    if (!filePath || !filePath.length) {
+        console.error('File is required.')
+    }
+    const stocks = Utils.readJsonFile(filePath);
+    generateResult();
+} catch (error) {
+    console.log("******Error******");
+    console.error(error.message);
+}

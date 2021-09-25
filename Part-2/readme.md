@@ -105,3 +105,7 @@ The `cancel` key in the above json object is an array containing stock symbol(s)
 
 ## SQL Statement:
 For cancelling the trade of the stocks `updated` statement is being used and `CancelledAt` is set to the current time using `now()` sql(postgresql) function.
+
+
+## Running the program:
+The program can be run using makefile. You need to change your directory to Part-2 using `cd Part-2`. To run the program please use `make json=JSONFILENAME.json run`.
