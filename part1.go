@@ -73,10 +73,7 @@ func main() {
 		fmt.Println("Please enter an expression in quotes")
 		return
 	}
-
 	input_str = os.Args[1]
-	
-
 
 	/* format input by detatching parenthesis, and splitting input into string 
 	slice using " " delimiter. */
@@ -88,8 +85,6 @@ func main() {
 	if next_token != "EOF"{
 		syntaxError()
 	}
-
-
 }
 
 // attempt to tokenize the next lexeme
@@ -100,7 +95,6 @@ func lex() {
 		next_token = "EOF"
 		return
 	} 
-	
 
 	lexeme := lexemes[lexeme_index]
 
@@ -156,17 +150,11 @@ func lex() {
 // starts the recursive descent parsing process by calling the root parsing subprogram
 func recursiveDescentParse() {
 
-	// debug
-	// for lexeme_index < len(lexemes){
-	// 	lex()
-	// }
-
 	// get first token
 	lex()
 
 	// attempt to parse the input token by token
 	expr()
-
 }
 
 
@@ -330,7 +318,6 @@ func isParen(str string) bool {
 		return true
 	}
 	return false
-
 }
 
 // returns the decimal value of a roman numeral 
@@ -389,13 +376,11 @@ func toArabic (numeral string) int {
     
     // if execution makes it here, something went wrong
     lexicalError()
-    return 0
-    
+    return 0 
 }
 
 // format output to point to proper lexeme 
 func lexicalError(){
-
 
 	fmt.Println("\n" + strings.Join(lexemes, " "))
 
@@ -411,12 +396,10 @@ func lexicalError(){
 	fmt.Println("^")
 	fmt.Println("Quid dicis? You offend Caesar with your sloppy lexical habits!\n")
 	os.Exit(3)
-
 }
 
 // format output to point to proper lexeme 
 func syntaxError(){
-
 
 	fmt.Println("\n" + strings.Join(lexemes, " "))
 
@@ -432,7 +415,6 @@ func syntaxError(){
 	fmt.Println("^")
 	fmt.Println("Quid dicis? True Romans would not understand your syntax!\n")
 	os.Exit(3)
-
 }
 
 
