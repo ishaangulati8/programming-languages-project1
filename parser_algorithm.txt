@@ -1,0 +1,55 @@
+
+
+<expr> 		-> <term> { (ADD_OP | SUB_OP) <term> }
+			-> OPEN_PAREN <expr> CLOSE_PAREN
+
+<term>		-> <factor> { (MULT_OP | DIV_OP | MOD_OP) <factor> }
+			-> OPEN_PAREN <term> CLOSE_PAREN
+
+<factor>	-> NUM POW_OP <factor>
+			-> NUM
+			-> OPEN_PAREN <expr> CLOSE_PAREN
+			-> OPEN_PAREN <factor> CLOSE_PAREN
+
+
+
+
+
+
+
+
+*Requires refactoring to fix left recursion and pairwise disjointness:
+
+
+<expr> 		-> <term> { (ADD_OP | SUB_OP) <term> }
+
+<term>		-> <factor> { (MULT_OP | DIV_OP | MOD_OP) <factor> }
+
+<factor>	-> NUM [<exponent>]
+			-> OPEN_PAREN <expr> CLOSE_PAREN [<exponent>]
+
+<exponent>	-> POW_OP <expr> [<exponent>]
+
+	
+
+
+
+or
+
+
+
+<expr> 		-> <term> { (ADD_OP | SUB_OP) <term> }
+
+<term>		-> <factor> { (MULT_OP | DIV_OP | MOD_OP) <factor> }
+
+<factor>	-> NUM [POW_OP <expr>]
+			-> OPEN_PAREN <expr> CLOSE_PAREN [POW_OP <expr>]
+
+
+
+
+
+
+III plus {IV times II] power II
+
+
