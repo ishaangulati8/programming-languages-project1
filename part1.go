@@ -25,8 +25,9 @@ const (
 ) 
 
 var (
-	//input_str string = "XII plus (VI divide II)"
-	input_str string = "IV modulo I"
+
+	// Temporary hard coded input string
+	input_str string = "XII plus (VI divide II) power"
 
 	lexemes []string
 	lexeme_index int = 0
@@ -68,7 +69,7 @@ var (
 
 func main() {
 
-	// read input
+	// TODO: read input from command line argument
 
 
 	/* format input by detatching parenthesis, and splitting input into string 
@@ -154,10 +155,7 @@ func parse() {
 
 	// attempt to parse the input token by token
 	expr()
-	
-	
-	
-	
+
 }
 
 
@@ -363,7 +361,6 @@ func toArabic (numeral string) int {
     
 }
 
-
 // format output to point to proper lexeme 
 func lexicalError(){
 
@@ -405,24 +402,6 @@ func syntaxError(){
 	os.Exit(3)
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
