@@ -11,7 +11,7 @@ import (
 type symbol struct {
 	symbol_index int
 	token string
- 	decimal_val int 	// -1 if not applicable 
+ 	decimal_val int 
 }
 
 type operator struct {
@@ -27,7 +27,7 @@ const (
 var (
 
 	// Temporary hard coded input string
-	input_str string = "XII plus (VI divide II) power"
+	input_str string = "XII plus (VI divide II) power I"
 
 	lexemes []string
 	lexeme_index int = 0
@@ -76,7 +76,7 @@ func main() {
 	slice using " " delimiter. */
 	formatInput()
 
-	parse()
+	recursiveDescentParse()
 
 	// check for extraneous lexemes
 	if next_token != "EOF"{
@@ -99,12 +99,12 @@ func lex() {
 	lexeme := lexemes[lexeme_index]
 
 	// used to store the decimal value of a roman numeral
-	num := 0
+	roman_num := 0
 
 	// if the lexeme is uppercase and starts with a letter, evaluate as a roman numeral
 	r := []rune(lexeme)
 	if strings.ToUpper(lexeme) == lexeme && unicode.IsLetter(r[0]) {
-		num = toArabic(lexeme)
+		roman_num = toArabic(lexeme)
 		next_token = "NUM"
 	
 	} else if unicode.IsLetter(r[0])  {  // else if lexeme starts with a letter, evaluate as operator
@@ -134,7 +134,7 @@ func lex() {
 	symbol_table[lexeme_index].symbol_index = lexeme_index
 	symbol_table[lexeme_index].token = next_token
 	if next_token == "NUM"{
-		symbol_table[lexeme_index].decimal_val = num
+		symbol_table[lexeme_index].decimal_val = roman_num
 	}
 
 	fmt.Printf("Next token is: %s\n", next_token)
@@ -143,7 +143,9 @@ func lex() {
 	lexeme_index++
 }
 
-func parse() {
+
+// starts the recursive descent parsing process by calling the root parsing subprogram
+func recursiveDescentParse() {
 
 	// debug
 	// for lexeme_index < len(lexemes){
@@ -157,6 +159,17 @@ func parse() {
 	expr()
 
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*****************************************************************/
@@ -251,6 +264,19 @@ func factor() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*****************************************************************/
 // helper functions
 /*****************************************************************/
@@ -300,9 +326,6 @@ func isParen(str string) bool {
 
 // returns the decimal value of a roman numeral 
 func toArabic (numeral string) int {
-
-	// fmt.Println(numeral)
-
 
 	// base case
 	if numeral == "" {
