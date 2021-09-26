@@ -26,8 +26,7 @@ const (
 
 var (
 
-	// Temporary hard coded input string
-	input_str string = "XII plus (VI divide II) power I"
+	input_str string = ""
 
 	lexemes []string
 	lexeme_index int = 0
@@ -69,7 +68,14 @@ var (
 
 func main() {
 
-	// TODO: read input from command line argument
+	// read input from command line argument
+	if len(os.Args) != 2 {
+		fmt.Println("Please enter an expression in quotes")
+		return
+	}
+
+	input_str = os.Args[1]
+	
 
 
 	/* format input by detatching parenthesis, and splitting input into string 
@@ -114,10 +120,13 @@ func lex() {
         		next_token = operators[op_index].token
         		break
     		}
+
+    		// if no operators are found - its a lexical error
+    		if op_index + 1 == len(operators) {
+    			lexicalError()
+    		}
 		}
-		if op_index > len(operators) - 1 {
-			lexicalError()
-		}
+		
 	}  else { // else evaluate as paren
 		switch lexeme {
 		case "(","{","[":
