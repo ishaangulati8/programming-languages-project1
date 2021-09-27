@@ -2,7 +2,7 @@ const Utils = require('./generators/Utils');
 const SQLGenerator = require('./generators/SQLGenerator');
 const DSLGenerator = require('./generators/DSLGenerator');
 
-const generateResult = () => {
+const generateResult = (stocks, filePath) => {
     const userId = stocks["user id"];
     const { buy: buyStocks, sell: sellStocks, cancel: cancelStocks } = stocks;
     let sqlString = '';
@@ -44,8 +44,9 @@ try {
         console.error('File is required.')
     }
     const stocks = Utils.readJsonFile(filePath);
-    generateResult();
+    generateResult(stocks, filePath);
 } catch (error) {
     console.log("******Error******");
     console.error(error.message);
+    console.log(error)
 }
