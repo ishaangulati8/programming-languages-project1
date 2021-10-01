@@ -343,6 +343,7 @@ func toArabic (numeral string) int {
     if strings.HasPrefix(numeral,"LC") 	{lexicalError()}
     if strings.HasPrefix(numeral,"LD") 	{lexicalError()}
     if strings.HasPrefix(numeral,"LM") 	{lexicalError()}
+    if strings.HasPrefix(numeral,"DM") 	{lexicalError()}
     if strings.HasPrefix(numeral,"IIII"){lexicalError()}
     if strings.HasPrefix(numeral,"VV") 	{lexicalError()}
     if strings.HasPrefix(numeral,"XXXX"){lexicalError()}
@@ -351,12 +352,13 @@ func toArabic (numeral string) int {
     if strings.HasPrefix(numeral,"DD")	{lexicalError()}
     if strings.HasPrefix(numeral,"MMMM"){lexicalError()}
 
-    if strings.HasPrefix(numeral,"CM") && numeral[2:] != "" {lexicalError()} 
-    if strings.HasPrefix(numeral,"CD") && numeral[2:] != "" {lexicalError()}
-    if strings.HasPrefix(numeral,"XC") && numeral[2:] != "" {lexicalError()}
-    if strings.HasPrefix(numeral,"XL") && numeral[2:] != "" {lexicalError()}
-    if strings.HasPrefix(numeral,"IX") && numeral[2:] != "" {lexicalError()}
-    if strings.HasPrefix(numeral,"IV") && numeral[2:] != "" {lexicalError()}
+    // special invalid syntax
+    if strings.HasPrefix(numeral,"CM")&&(numeral[2:3]=="C"||numeral[2:3]=="D"||numeral[2:3]=="M"){lexicalError()}
+    if strings.HasPrefix(numeral,"CD")&&(numeral[2:3]=="C"||numeral[2:3]=="D"||numeral[2:3]=="M"){lexicalError()}
+    if strings.HasPrefix(numeral,"XC")&&!(numeral[2:3]=="V"||numeral[2:3]=="I"){lexicalError()}
+    if strings.HasPrefix(numeral,"XL")&&!(numeral[2:3]=="V"||numeral[2:3]=="I"){lexicalError()}
+    if strings.HasPrefix(numeral,"IX")&& numeral[2:] != "" {lexicalError()}
+    if strings.HasPrefix(numeral,"IV")&& numeral[2:] != "" {lexicalError()}
 
 
     // valid syntax
