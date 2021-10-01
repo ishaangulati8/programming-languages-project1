@@ -309,7 +309,7 @@ func isParen(str string) bool {
 }
 
 // returns the decimal value of a roman numeral
-func toArabic(numeral string) int {
+func toArabic (numeral string) int {
 
 	// base case
 	if numeral == "" {
@@ -317,133 +317,56 @@ func toArabic(numeral string) int {
 	}
 
 	// invalid syntax
-	if strings.HasPrefix(numeral, "IL") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "IC") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "ID") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "IM") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "VX") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "VL") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "VC") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "VD") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "VM") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "XD") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "XM") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "LC") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "LD") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "LM") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "IIII") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "VV") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "XXXX") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "LL") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "CCCC") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "DD") {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "MMMM") {
-		lexicalError()
-	}
+    if strings.HasPrefix(numeral,"IL") 	{lexicalError()}
+    if strings.HasPrefix(numeral,"IC") 	{lexicalError()}
+    if strings.HasPrefix(numeral,"ID") 	{lexicalError()}
+    if strings.HasPrefix(numeral,"IM") 	{lexicalError()}
+    if strings.HasPrefix(numeral,"VX") 	{lexicalError()}
+    if strings.HasPrefix(numeral,"VL") 	{lexicalError()}
+    if strings.HasPrefix(numeral,"VC") 	{lexicalError()}
+    if strings.HasPrefix(numeral,"VD") 	{lexicalError()}
+    if strings.HasPrefix(numeral,"VM") 	{lexicalError()}
+    if strings.HasPrefix(numeral,"XD") 	{lexicalError()}
+    if strings.HasPrefix(numeral,"XM") 	{lexicalError()}
+    if strings.HasPrefix(numeral,"LC") 	{lexicalError()}
+    if strings.HasPrefix(numeral,"LD") 	{lexicalError()}
+    if strings.HasPrefix(numeral,"LM") 	{lexicalError()}
+    if strings.HasPrefix(numeral,"DM") 	{lexicalError()}
+    if strings.HasPrefix(numeral,"IIII"){lexicalError()}
+    if strings.HasPrefix(numeral,"VV") 	{lexicalError()}
+    if strings.HasPrefix(numeral,"XXXX"){lexicalError()}
+    if strings.HasPrefix(numeral,"LL")	{lexicalError()}
+    if strings.HasPrefix(numeral,"CCCC"){lexicalError()}
+    if strings.HasPrefix(numeral,"DD")	{lexicalError()}
+    if strings.HasPrefix(numeral,"MMMM"){lexicalError()}
 
-	if strings.HasPrefix(numeral, "CM") && numeral[2:] != "" {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "CD") && numeral[2:] != "" {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "XC") && numeral[2:] != "" {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "XL") && numeral[2:] != "" {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "IX") && numeral[2:] != "" {
-		lexicalError()
-	}
-	if strings.HasPrefix(numeral, "IV") && numeral[2:] != "" {
-		lexicalError()
-	}
+    // special invalid syntax
+    if strings.HasPrefix(numeral,"CM")&&(numeral[2:3]=="C"||numeral[2:3]=="D"||numeral[2:3]=="M"){lexicalError()}
+    if strings.HasPrefix(numeral,"CD")&&(numeral[2:3]=="C"||numeral[2:3]=="D"||numeral[2:3]=="M"){lexicalError()}
+    if strings.HasPrefix(numeral,"XC")&&!(numeral[2:3]=="V"||numeral[2:3]=="I"){lexicalError()}
+    if strings.HasPrefix(numeral,"XL")&&!(numeral[2:3]=="V"||numeral[2:3]=="I"){lexicalError()}
+    if strings.HasPrefix(numeral,"IX")&& numeral[2:] != "" {lexicalError()}
+    if strings.HasPrefix(numeral,"IV")&& numeral[2:] != "" {lexicalError()}
 
-	// valid syntax
-	if strings.HasPrefix(numeral, "M") {
-		return (1000 + toArabic(numeral[1:]))
-	}
-	if strings.HasPrefix(numeral, "CM") {
-		return (900 + toArabic(numeral[2:]))
-	}
-	if strings.HasPrefix(numeral, "D") {
-		return (500 + toArabic(numeral[1:]))
-	}
-	if strings.HasPrefix(numeral, "CD") {
-		return (400 + toArabic(numeral[2:]))
-	}
-	if strings.HasPrefix(numeral, "C") {
-		return (100 + toArabic(numeral[1:]))
-	}
-	if strings.HasPrefix(numeral, "XC") {
-		return (90 + toArabic(numeral[2:]))
-	}
-	if strings.HasPrefix(numeral, "L") {
-		return (50 + toArabic(numeral[1:]))
-	}
-	if strings.HasPrefix(numeral, "XL") {
-		return (40 + toArabic(numeral[2:]))
-	}
-	if strings.HasPrefix(numeral, "X") {
-		return (10 + toArabic(numeral[1:]))
-	}
-	if strings.HasPrefix(numeral, "IX") {
-		return (9 + toArabic(numeral[2:]))
-	}
-	if strings.HasPrefix(numeral, "V") {
-		return (5 + toArabic(numeral[1:]))
-	}
-	if strings.HasPrefix(numeral, "IV") {
-		return (4 + toArabic(numeral[2:]))
-	}
-	if strings.HasPrefix(numeral, "I") {
-		return (1 + toArabic(numeral[1:]))
-	}
 
-	// if execution makes it here, something went wrong
-	lexicalError()
-	return 0
+    // valid syntax
+    if strings.HasPrefix(numeral,"M") 	{return (1000 + toArabic(numeral[1:]))}
+    if strings.HasPrefix(numeral,"CM") 	{return (900 + toArabic(numeral[2:]))}
+    if strings.HasPrefix(numeral,"D") 	{return (500 + toArabic(numeral[1:]))}
+    if strings.HasPrefix(numeral,"CD") 	{return (400 + toArabic(numeral[2:]))}
+    if strings.HasPrefix(numeral,"C") 	{return (100 + toArabic(numeral[1:]))}
+    if strings.HasPrefix(numeral,"XC") 	{return (90 + toArabic(numeral[2:]))}
+    if strings.HasPrefix(numeral,"L") 	{return (50 + toArabic(numeral[1:]))}
+    if strings.HasPrefix(numeral,"XL") 	{return (40 + toArabic(numeral[2:]))}
+    if strings.HasPrefix(numeral,"X") 	{return (10 + toArabic(numeral[1:]))}
+    if strings.HasPrefix(numeral,"IX") 	{return (9 + toArabic(numeral[2:]))}
+    if strings.HasPrefix(numeral,"V") 	{return (5 + toArabic(numeral[1:]))}
+    if strings.HasPrefix(numeral,"IV") 	{return (4 + toArabic(numeral[2:]))}
+    if strings.HasPrefix(numeral,"I") 	{return (1 + toArabic(numeral[1:]))}
+    
+    // if execution makes it here, something went wrong
+    lexicalError()
+    return 0 
 }
 
 // format output to point to proper lexeme
