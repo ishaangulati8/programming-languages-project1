@@ -16,11 +16,6 @@ class Utils {
         return JSON.parse(data);
     }
 
-    static formatDSL(dslSubString, userId) {
-        let dslString = dslSubString.substring(0, dslSubString.length - 1);
-        return `${dslString}) for account "${userId}".`;
-    }
-
 }
 
 module.exports = Utils;
