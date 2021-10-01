@@ -192,7 +192,7 @@ func expr() *SyntaxTree {
 	for next_token == "ADD_OP" || next_token == "SUB_OP" {
 		var temp symbol = symbol_table[lexeme_index-1]
 		lex()
-		node = &SyntaxTree{left: node, value: temp, right: term()}
+		node = &SyntaxTree{left: node, value: temp, right: expr()}
 	}
 
 	fmt.Printf("Exit <expr>\n")
@@ -211,7 +211,7 @@ func term() *SyntaxTree {
 	for next_token == "MULT_OP" || next_token == "DIV_OP" || next_token == "MOD_OP" {
 		var temp symbol = symbol_table[lexeme_index-1]
 		lex()
-		node = &SyntaxTree{left: node, value: temp, right: exponential()}
+		node = &SyntaxTree{left: node, value: temp, right: term()}
 	}
 	fmt.Printf("Exit <term>\n")
 	return node
@@ -222,7 +222,7 @@ func exponential() *SyntaxTree {
 	for next_token == "POW_OP" {
 		var temp symbol = symbol_table[lexeme_index-1]
 		lex()
-		node = &SyntaxTree{left: node, value: temp, right: factor()}
+		node = &SyntaxTree{left: node, value: temp, right: exponential()}
 	}
 	return node
 }
@@ -448,40 +448,42 @@ func toArabic(numeral string) int {
 
 // format output to point to proper lexeme
 func lexicalError() {
+// TODO move to common error
+	// fmt.Println("\n" + strings.Join(lexemes, " "))
 
-	fmt.Println("\n" + strings.Join(lexemes, " "))
+	// space_count := 0
 
-	space_count := 0
+	// for i := 0; i < lexeme_index; i++ {
+	// 	space_count += (len(lexemes[i]) + 1)
+	// }
 
-	for i := 0; i < lexeme_index; i++ {
-		space_count += (len(lexemes[i]) + 1)
-	}
-
-	for i := 0; i < space_count; i++ {
-		fmt.Printf(" ")
-	}
-	fmt.Println("^")
-	fmt.Println("Quid dicis? You offend Caesar with your sloppy lexical habits!\n")
-	os.Exit(3)
+	// for i := 0; i < space_count; i++ {
+	// 	fmt.Printf(" ")
+	// }
+	// fmt.Println("^")
+	printError(lexeme_index, "Quid dicis? You offend Caesar with your sloppy lexical habits!\n")
+	// fmt.Println()
+	// os.Exit(3)
 }
 
 // format output to point to proper lexeme
 func syntaxError() {
+// TODO Move to error function
+	// fmt.Println("\n" + strings.Join(lexemes, " "))
 
-	fmt.Println("\n" + strings.Join(lexemes, " "))
+	// space_count := 0
 
-	space_count := 0
+	// for i := 0; i < lexeme_index-1; i++ {
+	// 	space_count += (len(lexemes[i]) + 1)
+	// }
 
-	for i := 0; i < lexeme_index-1; i++ {
-		space_count += (len(lexemes[i]) + 1)
-	}
-
-	for i := 0; i < space_count; i++ {
-		fmt.Printf(" ")
-	}
-	fmt.Println("^")
-	fmt.Println("Quid dicis? True Romans would not understand your syntax!\n")
-	os.Exit(3)
+	// for i := 0; i < space_count; i++ {
+	// 	fmt.Printf(" ")
+	// }
+	// fmt.Println("^")
+	printError(lexeme_index - 1, "Quid dicis? True Romans would not understand your syntax!\n")
+// 	fmt.Println("Quid dicis? True Romans would not understand your syntax!\n")
+// 	os.Exit(3)
 }
 
 func getResult(node *SyntaxTree) int {
@@ -522,7 +524,7 @@ func calculateResult(node *SyntaxTree) int {
 	return temp
 }
 
-func printCommonError(index int, message string) {
+func printError(index int, message string) {
 	fmt.Println("\n" + strings.Join(lexemes, " "))
 
 	space_count := 0
@@ -541,10 +543,10 @@ func printCommonError(index int, message string) {
 
 func raiseCalculateError(value int, index int) {
 	if value == 0 {
-		printCommonError(index, "Quid dicis? Arab merchants haven't left for India yet!")
+		printError(index, "Quid dicis? Arab merchants haven't left for India yet!")
 	}
 	if value < 0 {
-		printCommonError(index, "Quid dicis? Caesar demands positive thoughts!")
+		printError(index, "Quid dicis? Caesar demands positive thoughts!")
 	}
 
 }
@@ -572,6 +574,4 @@ func convertToRoman(number int) string {
 		i--
 	}
 	return resp
-
 }
-
