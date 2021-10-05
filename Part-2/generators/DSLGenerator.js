@@ -14,9 +14,13 @@ class DSLGenerator extends Generator {
     }
 
     static cancelRequest(userId, cancelledStocks) {
-        const statement = `\ncancel (${cancelledStocks.map((i) => (`'${i}'`))}) trade for account "${userId}".`;
+        const statement = `\nCancel (${cancelledStocks.map((i) => (`'${i}'`))}) trade for account "${userId}".`;
         return statement;
+    }
 
+    static formatDSL(dslSubString, userId) {
+        let dslString = dslSubString.substring(0, dslSubString.length - 1);
+        return `${dslString}) for account "${userId}".`;
     }
 }
 

@@ -50,7 +50,7 @@
 ## Modified Grammar to Cancel Trades for given stock(s):
 ```
 <stock_trade_requests> → ‘(' <trade> {‘,’ <trade>} ‘)  <account_substr> 
-| 'cancel' (<stock_symbol> {, <stock_symbol>}) 'trade' <account_substr>
+| 'Cancel' (<stock_symbol> {, <stock_symbol>}) 'trade' <account_substr>
 <trade> → <number> <stock_symbol> ‘shares’ (‘buy at max' | ‘sell at min') <number>
 <number> →  [1-9] {[0-9]}
 <stock_symbol> →

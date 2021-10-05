@@ -21,7 +21,7 @@ const generateResult = (stocks, filePath) => {
         dslString += dslGenerator.sellRequest();
     }
 
-    dslString = Utils.formatDSL(dslString, userId);
+    dslString = DSLGenerator.formatDSL(dslString, userId);
 
     if (cancelStocks && cancelStocks.length) {
         const sqlCancelStatement = SQLGenerator.cancelRequest(userId, cancelStocks);
