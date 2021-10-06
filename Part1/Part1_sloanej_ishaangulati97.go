@@ -476,7 +476,7 @@ func printError(index int, message string) {
 	for i := 0; i < index; i++ {
 		if isParen(lexemes[i]) {
 			space_count += 1
-		} else if i == len(lexemes) -1 {
+		} else if i == len(lexemes)-1 {
 			space_count += len(lexemes[i])
 		} else {
 			space_count += (len(lexemes[i]) + 1)
@@ -508,6 +508,10 @@ func getNodeType(node *SyntaxTree) string {
 	return "OPERATOR"
 
 }
+
+/*
+Reference: https://www.geeksforgeeks.org/converting-decimal-number-lying-between-1-to-3999-to-roman-numerals/
+*/
 
 func convertToRoman(number int) string {
 	num := [...]int{1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000}
