@@ -81,10 +81,6 @@ func main() {
 	formatInput()
 	recursiveDescentParse()
 
-	// check for extraneous lexemes
-	if next_token != "EOF" {
-		syntaxError()
-	}
 }
 
 // attempt to tokenize the next lexeme
@@ -92,6 +88,7 @@ func lex() {
 
 	// no more lexemes to tokenize
 	if lexeme_index >= len(lexemes) {
+		lexeme_index++
 		next_token = "EOF"
 		return
 	}
@@ -139,6 +136,7 @@ func lex() {
 	if next_token == "NUM" {
 		symbol_table[lexeme_index].decimal_val = roman_num
 	}
+
 	// get ready for next call to lex
 	lexeme_index++
 }
@@ -423,12 +421,12 @@ func toArabic(numeral string) int {
 
 // format output to point to proper lexeme
 func lexicalError() {
-	printError(lexeme_index, "Quid dicis? You offend Caesar with your sloppy lexical habits!\n")
+	printError(lexeme_index, "Quid dicis? You offend Caesar with your sloppy lexical habits!")
 }
 
 // format output to point to proper lexeme
 func syntaxError() {
-	printError(lexeme_index-1, "Quid dicis? True Romans would not understand your syntax!\n")
+	printError(lexeme_index-1, "Quid dicis? True Romans would not understand your syntax!")
 }
 
 func getResult(node *SyntaxTree) int {
@@ -470,12 +468,19 @@ func calculateResult(node *SyntaxTree) int {
 }
 
 func printError(index int, message string) {
-	fmt.Println("\n" + strings.Join(lexemes, " "))
+
+	fmt.Println(input_str)
 
 	space_count := 0
 
 	for i := 0; i < index; i++ {
-		space_count += (len(lexemes[i]) + 1)
+		if isParen(lexemes[i]) {
+			space_count += 1
+		} else if i == len(lexemes)-1 {
+			space_count += len(lexemes[i])
+		} else {
+			space_count += (len(lexemes[i]) + 1)
+		}
 	}
 
 	for i := 0; i < space_count; i++ {
@@ -503,6 +508,10 @@ func getNodeType(node *SyntaxTree) string {
 	return "OPERATOR"
 
 }
+
+/*
+Reference: https://www.geeksforgeeks.org/converting-decimal-number-lying-between-1-to-3999-to-roman-numerals/
+*/
 
 func convertToRoman(number int) string {
 	num := [...]int{1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000}
