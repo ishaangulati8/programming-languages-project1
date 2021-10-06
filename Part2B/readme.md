@@ -100,12 +100,12 @@
 
 ```
 
-The `cancel` key in the above json object is an array containing stock symbol(s) for which trade is to be cancelled. We can cancel trades of more than one stock at a time.
+The `cancel` key in the above json object is an array containing stock symbol(s) for which trade is to be cancelled. We can cancel trade for more than one stock at a time.
 
 
 ## SQL Statement:
-For cancelling the trade of the stocks `updated` statement is being used and `CancelledAt` is set to the current time using `now()` sql(postgresql) function.
+For cancelling the trade of the stocks `update` statement is being used and `CancelledAt` is set to the current time using `now()` sql(postgresql) function. It is assumed that there will a `CancelledAt` column in the database table which will be only populated when the trade has been cancelled. This would help us in keeping track when the trade was cancelled and for which stocks it was cancelled.
 
 
 ## Running the program:
-The program can be run using makefile. You need to change your directory to Part-2 using `cd Part-2`. To run the program please use `make json=JSONFILENAME.json run`.
+The program can be run using makefile. You need to change your directory to Part2A using `cd Part2A`. To run the program please use `make json=JSONFILENAME.json run`. The run command would first delete the existing `.json` and `.sql` present in current directory, then execute the program and produce the output into corresponding `JSONFILENAME.sql` and `JSONFILENAME.dsl` files.

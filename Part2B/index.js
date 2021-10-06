@@ -2,11 +2,23 @@ const Utils = require('./generators/Utils');
 const SQLGenerator = require('./generators/SQLGenerator');
 const DSLGenerator = require('./generators/DSLGenerator');
 
+
+function validateData(userId, buyStocks, sellStocks, cancel) {
+    if (!userId) {
+        throw new Error("User Id is required to process the request.")
+    }
+    if (!buyStocks.length && !sellStocks.length && !cancel) {
+        throw new Error('\"buy\" or \"sell\" or \"cancel\" should be present to process the request.');
+    }
+}
+
 const generateResult = (stocks, filePath) => {
     const userId = stocks["user id"];
-    const { buy: buyStocks, sell: sellStocks, cancel: cancelStocks } = stocks;
+    const { buy: buyStocks = [], sell: sellStocks = [], cancel: cancelStocks = [] } = stocks;
     let sqlString = '';
-    let dslString = '(';
+    let dslString = '';
+    let cancelString = '';
+    validateData(userId, buyStocks, sellStocks, cancelStocks);
     for (const stock of buyStocks) {
         const sqlGenerator = new SQLGenerator(userId, stock);
         const dslGenerator = new DSLGenerator(userId, stock);
@@ -21,21 +33,21 @@ const generateResult = (stocks, filePath) => {
         dslString += dslGenerator.sellRequest();
     }
 
-    dslString = DSLGenerator.formatDSL(dslString, userId);
-
     if (cancelStocks && cancelStocks.length) {
         const sqlCancelStatement = SQLGenerator.cancelRequest(userId, cancelStocks);
         const dslCancelStatement = DSLGenerator.cancelRequest(userId, cancelStocks);
         sqlString += sqlCancelStatement;
-        dslString += dslCancelStatement;
+        cancelString += dslCancelStatement;
     }
 
-    const fileName = (filePath.split('.'))[0];
-    //write sql file.
-    Utils.writeFile(`${fileName}.sql`, sqlString);
-    //write dsl file.
-    Utils.writeFile(`${fileName}.dsl`, dslString);
-
+    const fileName = Utils.getFileName(filePath);
+    if (sqlString && (dslString || cancelString)) {
+        //write sql file.
+        Utils.writeFile(`${fileName}.sql`, sqlString);
+        //write dsl file.
+        dslString = DSLGenerator.formatDSL(dslString, userId); // formatting dsl
+        Utils.writeFile(`${fileName}.dsl`, `${dslString}${cancelString}`);
+    }
 }
 
 try {
@@ -48,5 +60,4 @@ try {
 } catch (error) {
     console.log("******Error******");
     console.error(error.message);
-    console.log(error)
 }
