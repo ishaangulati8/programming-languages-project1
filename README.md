@@ -1,3 +1,19 @@
+# Part 1
+We assume that the arithmetic expression input into the program uses single spaces between terms and no spaces after left parenthesis.
+<br>
+<br>
+good syntax:
+<br>
+```
+I plus (II times III)
+```
+<br>
+bad syntax:
+<br>
+
+```
+I plus ( II times III )
+```
 # Part 2
 Please make sure you have ***NodeJs@v10.21.0*** and ***npm@6.14.8*** (node package manager) installed in your system to run the code for part 2A and 2B.
 <br>
