@@ -28,9 +28,5 @@
             "shares": 30,
             "at min": 25
         }
-    ],
-    "cancel": [
-        "GOOGL",
-        "ORCL"
     ]
 }

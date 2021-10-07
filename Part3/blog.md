@@ -1,3 +1,5 @@
+# **Part 3**
+
 Over the past few weeks a teammate and I have implemented a roman numeral calculator. This command-line program accepts arithmetic expressions containing roman numerals and either computes the result or gives an error - when the entered expression does not adhere to the proper format. Developing this program required the application of programming language compilation concepts like lexical analysis, syntax analysis, and semantic analysis. In this sense, I treated the “correct format” for roman numeral arithmetic expressions as a language - which I described and parsed using a formal grammar.
 
 As a bit of background, I am a graduate computer science student, and I have studied grammars and parsing algorithms before, but developing this roman numeral calculator was still a tough challenge. First of all, I wrote this program using the Go programming language - which I have never used before. My experience with Go was overall positive. There are numerous resources for learning the language, and my prior experience with C and C++ helped escalate the learning process - as Go shares many syntactic similarities with C. One particular feature of Go that I enjoyed was the global variable grouping under the “Variable Declaration Block.” This allows for variable declarations to be grouped together into blocks for greater readability and code quality.
@@ -26,4 +28,4 @@ After working as a full-stack developer for more than two years, returning to ac
 
 For building the DSL and SQL statements, NodeJs is being used. NodeJS natively supports serialization and deserialization of JSON objects through JSON.stringify() and JSON.parse() functions. We can also read JSON objects without parsing them. With the help of string interpolation DSL and SQL statements are generated. To depict a trade cancellation request, the SQL update statement is being used, and it is assumed that there would be a timestamp type column called `CancelledAt`; this approach would help us maintain a log of cancelled trade requests.
 
-Overall, working on the project was a fun learning experience. I hope you would also have felt the same while reading through the experience :-).
+Overall, working on the project was a fun learning experience. I hope you would also have felt the same while reading through the blog :-).

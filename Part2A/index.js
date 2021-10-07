@@ -1,23 +1,14 @@
-const Utils = require('./generators/Utils');
+const Utils = require('./Utils');
+const typeValidation = require('./typeValidations');
 const SQLGenerator = require('./generators/SQLGenerator');
 const DSLGenerator = require('./generators/DSLGenerator');
 
 
-function validateData(userId, buyStocks, sellStocks) {
-    if (!userId) {
-        throw new Error("User Id is required to process the request.")
-    }
-    if (!buyStocks.length && !sellStocks.length) {
-        throw new Error('\"buy\" or \"sell\" should be present to process the request.');
-    }
-}
-
 const generateResult = (stocks, filePath) => {
-    const userId = stocks["user id"];
-    const { buy: buyStocks = [], sell: sellStocks = [] } = stocks;
+    typeValidation(stocks);
+    const { 'user id': userId, buy: buyStocks = [], sell: sellStocks = [] } = stocks;
     let sqlString = '';
     let dslString = '';
-    validateData(userId, buyStocks, sellStocks);
     for (const stock of buyStocks) {
         const sqlGenerator = new SQLGenerator(userId, stock);
         const dslGenerator = new DSLGenerator(userId, stock);
@@ -39,7 +30,7 @@ const generateResult = (stocks, filePath) => {
         //write dsl file.
         dslString = DSLGenerator.formatDSL(dslString, userId); // formatting dsl
         Utils.writeFile(`${fileName}.dsl`, `${dslString}`);
-    } 
+    }
 }
 
 try {
