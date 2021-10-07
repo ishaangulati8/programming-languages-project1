@@ -1,5 +1,5 @@
 # Part 2
-Please make sure you have ***NodeJs@v10.21.0*** installed in your system to run the code for part 2A and 2B.
+Please make sure you have ***NodeJs@v10.21.0*** and ***npm@6.14.8*** (node package manager) installed in your system to run the code for part 2A and 2B.
 <br>
 <br>
 ## **Part 2A**
@@ -183,7 +183,7 @@ For cancelling the trade of the stocks `update` statement is being used and `Can
 ## Running the program:
 The program can be run using makefile. You need to change your directory to Part2B using `cd Part2B`. To run the program please use `make build` to install the dependencies and then `make json=JSONFILENAME.json run` to execute the program.
 `make clean` would delete all the dependencies i.e., node_modules, and .dsl and .sql files present in the Part2B directory.
-`make filename=FILE_TO_DELETE delete` would delete the file.
+`make file=FILE_TO_DELETE delete` would delete the file.
 
 <br>
 <br>
