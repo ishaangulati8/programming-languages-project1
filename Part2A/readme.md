@@ -46,5 +46,13 @@
     ],
 }
 ```
+## Given SQL
+```sql
+INSERT INTO BuyRequests (NumShares, Symbol, MaxPrice, AccountID)
+		                               VALUES (‘100’, ‘IBM’, ‘45’,  ‘Hokie123’)
+
+INSERT INTO SellRequests(NumShares, Symbol, MinPrice, AccountID)
+				        VALUES(‘30’, ‘ORCL’, ‘25’, ‘Hokie123’)
+```
 ## Running the program:
 The program can be run using makefile. You need to change your directory to Part2A using `cd Part2A`. To run the program please use `make json=JSONFILENAME.json run`. The run command would first delete the existing `.json` and `.sql` present in current directory, then execute the program and produce the output into corresponding `.sql` and `.dsl` files.

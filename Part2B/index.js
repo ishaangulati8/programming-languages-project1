@@ -1,24 +1,15 @@
-const Utils = require('./generators/Utils');
+const Utils = require('./Utils');
+const typeValidation = require('./typeValidations');
 const SQLGenerator = require('./generators/SQLGenerator');
 const DSLGenerator = require('./generators/DSLGenerator');
 
 
-function validateData(userId, buyStocks, sellStocks, cancel) {
-    if (!userId) {
-        throw new Error("User Id is required to process the request.")
-    }
-    if (!buyStocks.length && !sellStocks.length && !cancel) {
-        throw new Error('\"buy\" or \"sell\" or \"cancel\" should be present to process the request.');
-    }
-}
-
 const generateResult = (stocks, filePath) => {
-    const userId = stocks["user id"];
-    const { buy: buyStocks = [], sell: sellStocks = [], cancel: cancelStocks = [] } = stocks;
+    typeValidation(stocks);
+    const { 'user id': userId, buy: buyStocks = [], sell: sellStocks = [], cancel: cancelStocks = [] } = stocks;
     let sqlString = '';
     let dslString = '';
     let cancelString = '';
-    validateData(userId, buyStocks, sellStocks, cancelStocks);
     for (const stock of buyStocks) {
         const sqlGenerator = new SQLGenerator(userId, stock);
         const dslGenerator = new DSLGenerator(userId, stock);
