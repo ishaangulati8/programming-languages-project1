@@ -61,7 +61,9 @@ INSERT INTO SellRequests(NumShares, Symbol, MinPrice, AccountID)
 				        VALUES(‘30’, ‘ORCL’, ‘25’, ‘Hokie123’)
 ```
 ## Running the program:
-The program can be run using makefile. You need to change your directory to Part2A using `cd Part2A`. To run the program please use `make json=JSONFILENAME.json run`. The run command would first delete the existing `.json` and `.sql` present in current directory, then execute the program and produce the output into corresponding `.sql` and `.dsl` files under Part2A directory..
+The program can be run using makefile. You need to change your directory to Part2A using `cd Part2A`. To run the program please use `make build` to install the dependencies and then `make json=JSONFILENAME.json run` to execute the program.
+
+`make clean` would delete all the dependencies i.e., node_modules, and .dsl and .sql files present in the Part2A directory.
 <br>
 <br>
 
@@ -179,7 +181,9 @@ For cancelling the trade of the stocks `update` statement is being used and `Can
 
 
 ## Running the program:
-The program can be run using makefile. You need to change your directory to Part2A using `cd Part2A`. To run the program please use `make json=JSONFILENAME.json run`. The run command would first delete the existing `.json` and `.sql` present in current directory, then execute the program and produce the output into corresponding `JSONFILENAME.sql` and `JSONFILENAME.dsl` files under Part2B directory.
+The program can be run using makefile. You need to change your directory to Part2B using `cd Part2B`. To run the program please use `make build` to install the dependencies and then `make json=JSONFILENAME.json run` to execute the program.
+`make clean` would delete all the dependencies i.e., node_modules, and .dsl and .sql files present in the Part2B directory.
+`make filename=FILE_TO_DELETE delete` would delete the file.
 
 <br>
 <br>
